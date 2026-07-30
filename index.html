@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zumbido (Tinnitus) — Módulo de Otoneurologia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16292E;
+  --petrol:#0F373F;
+  --petrol-2:#12464F;
+  --paper:#EFF3F4;
+  --card:#FFFFFF;
+  --amber:#E08A2B;        /* sinal / zumbido */
+  --amber-soft:#FBEAD2;
+  --teal:#2A8C9E;         /* via auditiva / vascular */
+  --teal-soft:#DDEEF1;
+  --coral:#C8443F;        /* red flag / danger */
+  --coral-soft:#F7DEDC;
+  --green:#3E8E6E;        /* conservador / pérola */
+  --green-soft:#DCEDE5;
+  --violet:#6E5AA6;       /* farmacológico */
+  --violet-soft:#E6E1F1;
+  --line:#D3DCDE;
+  --muted:#5B6E72;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#0C2F36 0%,#12464F 60%,#155A63 100%);
+  color:#EAF3F4;padding:70px 0 58px;
+}
+.hero svg.grid{position:absolute;inset:0;width:100%;height:100%;opacity:.28}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--amber);font-weight:500;margin:0 0 14px;
+}
+.hero h1{
+  font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,6vw,3.6rem);
+  line-height:1.02;margin:0 0 16px;letter-spacing:-.01em;
+}
+.hero h1 em{font-style:italic;color:var(--amber)}
+.hero p.lede{font-size:1.06rem;max-width:640px;color:#C9DEE0;margin:0 0 26px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.04em;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);
+  padding:6px 12px;border-radius:999px;color:#DCEBEC;
+}
+
+/* ---------- SUMÁRIO ---------- */
+.toc{background:var(--petrol);color:#DCEBEC;padding:20px 0}
+.toc .wrap{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:.86rem}
+.toc a{color:#B7D2D5;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:.78rem}
+.toc a:hover{color:var(--amber)}
+
+/* ---------- SEÇÕES ---------- */
+section{padding:52px 0 8px}
+.snum{
+  font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.22em;
+  color:var(--amber);text-transform:uppercase;font-weight:500;
+  display:flex;align-items:center;gap:12px;margin-bottom:8px;
+}
+.snum::before{content:"";width:26px;height:2px;background:var(--amber);display:inline-block}
+h2{
+  font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.5rem,3.6vw,2.15rem);
+  margin:.1em 0 .5em;letter-spacing:-.01em;line-height:1.1;color:var(--petrol);
+}
+h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.22rem;margin:1.6em 0 .5em;color:var(--petrol-2)}
+h4{font-size:.95rem;font-weight:700;margin:1.2em 0 .3em;color:var(--ink)}
+p{margin:.5em 0}
+strong{font-weight:600}
+.lead{font-size:1.05rem;color:#33474B}
+
+/* ---------- CARDS / CALLOUTS ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:18px 0;box-shadow:0 1px 0 rgba(16,55,63,.04)}
+.callout{border-radius:12px;padding:16px 18px 16px 20px;margin:16px 0;border-left:4px solid;font-size:.95rem}
+.callout .tag{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;display:block;margin-bottom:6px}
+.c-pearl{background:var(--green-soft);border-color:var(--green)}
+.c-pearl .tag{color:var(--green)}
+.c-pit{background:var(--amber-soft);border-color:var(--amber)}
+.c-pit .tag{color:#B26A16}
+.c-red{background:var(--coral-soft);border-color:var(--coral)}
+.c-red .tag{color:var(--coral)}
+.c-neuro{background:var(--teal-soft);border-color:var(--teal)}
+.c-neuro .tag{color:#1F6B79}
+
+/* ---------- TABELAS ---------- */
+.tbl-wrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:.9rem;background:var(--card);min-width:520px}
+th{background:var(--petrol);color:#EAF3F4;text-align:left;padding:11px 14px;font-weight:600;font-size:.82rem;letter-spacing:.02em}
+td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#F7FAFA}
+td strong{color:var(--petrol-2)}
+
+/* ---------- GRID DUPLO ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:680px){.two{grid-template-columns:1fr}}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.mini h4{margin-top:0}
+ul.tight{margin:.4em 0;padding-left:1.1em}
+ul.tight li{margin:.28em 0}
+.kbd{font-family:'IBM Plex Mono',monospace;background:#e7edee;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.82em}
+
+/* ---------- QUIZ ---------- */
+.quiz{background:linear-gradient(165deg,#0C2F36,#12464F);color:#EAF3F4;border-radius:18px;padding:34px 26px;margin:26px 0 10px}
+.quiz h2{color:#fff;margin-top:0}
+.q{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q .qhead{font-weight:600;margin-bottom:12px;font-size:1rem}
+.q .qhead .qn{font-family:'IBM Plex Mono',monospace;color:var(--amber);margin-right:8px}
+.opt{display:block;width:100%;text-align:left;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.16);color:#EAF3F4;
+  padding:11px 14px;border-radius:9px;margin:7px 0;cursor:pointer;font-size:.92rem;font-family:inherit;transition:.15s}
+.opt:hover:not(:disabled){background:rgba(255,255,255,.12);border-color:var(--amber)}
+.opt:disabled{cursor:default}
+.opt.correct{background:rgba(62,142,110,.32);border-color:var(--green);color:#EAFBF3}
+.opt.wrong{background:rgba(200,68,63,.30);border-color:var(--coral);color:#FCE6E5}
+.opt .mk{float:right;font-weight:700}
+.expl{display:none;margin-top:12px;font-size:.88rem;background:rgba(224,138,43,.12);border-left:3px solid var(--amber);padding:10px 14px;border-radius:0 8px 8px 0;color:#F2E4CF}
+.expl.show{display:block}
+.expl b{color:var(--amber)}
+#score{margin-top:22px;font-family:'IBM Plex Mono',monospace;font-size:1.05rem;text-align:center;padding:16px;border-radius:12px;background:rgba(255,255,255,.06);display:none}
+#score.show{display:block}
+#score .big{font-size:1.8rem;color:var(--amber);font-weight:600;display:block}
+
+footer{background:var(--petrol);color:#9FBABE;text-align:center;padding:26px;font-size:.8rem;font-family:'IBM Plex Mono',monospace;margin-top:40px}
+
+/* SVG anatomia */
+.diagram{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+.diagram svg{width:100%;height:auto;display:block}
+.leg{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--muted);text-align:center;margin-top:8px}
+
+@media print{
+  .hero,.toc{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .opt{background:#eee!important;color:#000!important}
+  .quiz{background:#eee!important;color:#000!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <svg class="grid" viewBox="0 0 960 400" preserveAspectRatio="none" aria-hidden="true">
+    <g stroke="#7FB8C0" stroke-width="1" opacity="0.5">
+      <line x1="0" y1="80" x2="960" y2="80"/><line x1="0" y1="160" x2="960" y2="160"/>
+      <line x1="0" y1="240" x2="960" y2="240"/><line x1="0" y1="320" x2="960" y2="320"/>
+    </g>
+    <g stroke="#7FB8C0" stroke-width="1" opacity="0.25">
+      <line x1="160" y1="0" x2="160" y2="400"/><line x1="320" y1="0" x2="320" y2="400"/>
+      <line x1="480" y1="0" x2="480" y2="400"/><line x1="640" y1="0" x2="640" y2="400"/><line x1="800" y1="0" x2="800" y2="400"/>
+    </g>
+    <path d="M0,300 C120,300 150,150 240,150 C320,150 340,290 430,120 C520,-40 560,340 660,200 C760,80 800,260 960,180"
+      fill="none" stroke="#E08A2B" stroke-width="3" opacity="0.9"/>
+    <path d="M0,220 Q120,120 240,220 T480,220 T720,220 T960,220" fill="none" stroke="#EAF3F4" stroke-width="1.5" opacity="0.4"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow">Otoneurologia · Módulo Clínico · Graduação em Medicina</p>
+    <h1>Zumbido <em>(Tinnitus)</em><br>da cóclea ao córtex</h1>
+    <p class="lede">Fisiopatologia, causas otológicas e neurológicas, investigação audiológica e por imagem, diagnósticos diferenciais e as três frentes de tratamento — com atenção especial ao zumbido pulsátil.</p>
+    <div class="meta">
+      <span class="chip">🔊 Subjetivo × Objetivo</span>
+      <span class="chip">🧠 Ênfase otoneurológica</span>
+      <span class="chip">🩺 Alta relevância clínica</span>
+      <span class="chip">📝 Mini-simulado ao final</span>
+    </div>
+  </div>
+</header>
+
+<!-- ================= SUMÁRIO ================= -->
+<nav class="toc">
+  <div class="wrap">
+    <a href="#def">01 · Definição</a>
+    <a href="#fisio">02 · Fisiopatologia</a>
+    <a href="#anat">03 · Bases otorrino</a>
+    <a href="#etio">04 · Etiologia</a>
+    <a href="#pulsatil">05 · Pulsátil</a>
+    <a href="#anamnese">06 · Anamnese/EF</a>
+    <a href="#exames">07 · Exames</a>
+    <a href="#imagem">08 · Imagem</a>
+    <a href="#ddx">09 · Diferenciais</a>
+    <a href="#trat">10 · Tratamento</a>
+    <a href="#red">11 · Red flags</a>
+    <a href="#quiz">12 · Simulado</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ===== 01 DEFINIÇÃO ===== -->
+<section id="def">
+  <div class="snum">Seção 01</div>
+  <h2>Definição e classificação</h2>
+  <p class="lead"><strong>Zumbido</strong> é a percepção consciente de um som na ausência de fonte sonora externa correspondente. É um <em>sintoma</em>, não uma doença — sempre exige busca por causa subjacente. Afeta ~10–15% dos adultos; incomoda de forma significativa cerca de 1–2%.</p>
+
+  <div class="two">
+    <div class="mini">
+      <h4>🔇 Subjetivo (>95%)</h4>
+      <p>Só o paciente percebe. Origem em qualquer ponto da via auditiva (cóclea → córtex). Não é audível pelo examinador.</p>
+    </div>
+    <div class="mini">
+      <h4>🔊 Objetivo (raro, mas importante)</h4>
+      <p>Gerado por uma <strong>fonte física real de som</strong> no corpo (vascular, muscular). Pode ser <strong>auscultado/gravado</strong> pelo examinador. Aponta para causa estrutural.</p>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+  <table>
+    <tr><th>Eixo</th><th>Categorias</th><th>Pista clínica</th></tr>
+    <tr><td><strong>Fonte percebida</strong></td><td>Subjetivo × Objetivo</td><td>Objetivo → investigar vascular/muscular; auscultar!</td></tr>
+    <tr><td><strong>Ritmo</strong></td><td>Não-pulsátil × <strong>Pulsátil</strong></td><td>Pulsátil síncrono com pulso → causa vascular até prova contrária</td></tr>
+    <tr><td><strong>Tempo</strong></td><td>Agudo (&lt;3 m) × Crônico (&gt;3–6 m)</td><td>Agudo unilateral + hipoacusia súbita = urgência</td></tr>
+    <tr><td><strong>Lateralidade</strong></td><td>Uni × Bilateral</td><td><strong>Unilateral persistente</strong> = bandeira para lesão retrococlear/estrutural</td></tr>
+    <tr><td><strong>Caráter</strong></td><td>Tonal, ruído, "clique", "grilo"</td><td>Clique rítmico → mioclonia palatina; sopro → vascular</td></tr>
+  </table>
+  </div>
+
+  <div class="callout c-pearl">
+    <span class="tag">Pérola</span>
+    Duas características, isoladamente, já reorganizam toda a investigação: <strong>unilateral</strong> (pensar retrococlear/schwannoma) e <strong>pulsátil</strong> (pensar vascular). São os dois gatilhos de imagem mais importantes.
+  </div>
+</section>
+
+<!-- ===== 02 FISIOPATOLOGIA ===== -->
+<section id="fisio">
+  <div class="snum">Seção 02</div>
+  <h2>Fisiopatologia</h2>
+  <p class="lead">O paradigma atual entende o zumbido subjetivo crônico como um fenômeno predominantemente <strong>central</strong>, mesmo quando desencadeado perifericamente. A lesão coclear é o gatilho; a manutenção do sintoma é neural.</p>
+
+  <h3>1. Desaferentação e ganho central</h3>
+  <p>Lesão das células ciliadas (presbiacusia, trauma sonoro, ototóxicos) reduz a entrada aferente em certas frequências. O SNC auditivo responde com <strong>aumento do ganho central</strong> (homeostase de excitabilidade): amplifica o sinal residual e a atividade espontânea. Surgem <strong>hiperatividade neuronal, aumento da sincronia e reorganização tonotópica</strong> no colículo inferior e córtex auditivo. O zumbido costuma cair na região de frequência da perda auditiva.</p>
+
+  <div class="callout c-neuro">
+    <span class="tag">Conceito-chave</span>
+    Zumbido é frequentemente um "<strong>membro fantasma auditivo</strong>": plasticidade mal-adaptativa preenche a ausência de aferência com atividade neural percebida como som.
+  </div>
+
+  <h3>2. Modelo neurofisiológico de Jastreboff</h3>
+  <p>Explica por que dois pacientes com o "mesmo" zumbido têm sofrimentos opostos. O sinal gerado nas vias auditivas é processado pelo <strong>sistema límbico</strong> (significado emocional) e pelo <strong>sistema nervoso autônomo</strong> (resposta de alerta). Quando o zumbido é rotulado como ameaça, forma-se um <strong>circuito de reforço negativo</strong> (som → medo/atenção → ansiedade → mais percepção). É a base racional para a <em>Tinnitus Retraining Therapy</em> (TRT) e para a TCC.</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#0F373F"/>
+        </marker>
+        <marker id="arrR" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#C8443F"/>
+        </marker>
+      </defs>
+      <!-- caixas -->
+      <g font-family="Inter,sans-serif" font-size="13" text-anchor="middle">
+        <rect x="20" y="80" width="150" height="52" rx="9" fill="#DDEEF1" stroke="#2A8C9E"/>
+        <text x="95" y="102" font-weight="600" fill="#12464F">Gerador do sinal</text>
+        <text x="95" y="120" font-size="11" fill="#5B6E72">cóclea / via auditiva</text>
+
+        <rect x="285" y="20" width="150" height="52" rx="9" fill="#FBEAD2" stroke="#E08A2B"/>
+        <text x="360" y="42" font-weight="600" fill="#B26A16">Córtex auditivo</text>
+        <text x="360" y="60" font-size="11" fill="#5B6E72">percepção do som</text>
+
+        <rect x="285" y="138" width="150" height="52" rx="9" fill="#E6E1F1" stroke="#6E5AA6"/>
+        <text x="360" y="160" font-weight="600" fill="#6E5AA6">Sistema límbico</text>
+        <text x="360" y="178" font-size="11" fill="#5B6E72">emoção / significado</text>
+
+        <rect x="550" y="80" width="150" height="52" rx="9" fill="#F7DEDC" stroke="#C8443F"/>
+        <text x="625" y="102" font-weight="600" fill="#C8443F">SN autônomo</text>
+        <text x="625" y="120" font-size="11" fill="#5B6E72">alerta / ansiedade</text>
+      </g>
+      <!-- setas -->
+      <path d="M170,100 C215,90 240,55 283,48" fill="none" stroke="#0F373F" stroke-width="2" marker-end="url(#arr)"/>
+      <path d="M170,112 C215,130 240,160 283,164" fill="none" stroke="#0F373F" stroke-width="2" marker-end="url(#arr)"/>
+      <path d="M435,50 C490,60 505,85 548,96" fill="none" stroke="#0F373F" stroke-width="2" marker-end="url(#arr)"/>
+      <path d="M435,164 C490,150 505,124 548,113" fill="none" stroke="#0F373F" stroke-width="2" marker-end="url(#arr)"/>
+      <!-- loop de reforço -->
+      <path d="M600,80 C610,40 470,20 360,18 C250,16 130,40 118,80" fill="none" stroke="#C8443F" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrR)"/>
+      <text x="360" y="10" font-family="IBM Plex Mono,monospace" font-size="10" fill="#C8443F" text-anchor="middle">alça de reforço negativo (atenção + medo)</text>
+    </svg>
+    <div class="leg">Modelo de Jastreboff — o sofrimento nasce do acoplamento límbico/autonômico, não da intensidade do sinal</div>
+  </div>
+
+  <h3>3. Mecanismos por categoria</h3>
+  <div class="tbl-wrap">
+  <table>
+    <tr><th>Mecanismo</th><th>Exemplo típico</th><th>Correlato</th></tr>
+    <tr><td><strong>Coclear / desaferentação</strong></td><td>Presbiacusia, PAIR, ototóxicos</td><td>Zumbido tonal agudo bilateral, ganho central</td></tr>
+    <tr><td><strong>Hidrópico</strong></td><td>Doença de Ménière</td><td>Zumbido grave/rugido flutuante + vertigem + plenitude</td></tr>
+    <tr><td><strong>Compressivo/retrococlear</strong></td><td>Schwannoma vestibular</td><td>Unilateral progressivo + hipoacusia assimétrica</td></tr>
+    <tr><td><strong>Vascular (fluxo turbulento)</strong></td><td>Estenose carótida, fístula dural, glomus</td><td>Pulsátil, por vezes objetivo</td></tr>
+    <tr><td><strong>Transmissão pressórica (LCR)</strong></td><td>Hipertensão intracraniana idiopática</td><td>Pulsátil + cefaleia + papiledema</td></tr>
+    <tr><td><strong>Mecânico/muscular</strong></td><td>Mioclonia palatina, DTM</td><td>Clique rítmico, modulável com mandíbula/pescoço</td></tr>
+  </table>
+  </div>
+</section>
+
+<!-- ===== 03 BASES OTORRINO ===== -->
+<section id="anat">
+  <div class="snum">Seção 03</div>
+  <h2>Bases de otorrinolaringologia</h2>
+  <p class="lead">Antes de investigar zumbido, é preciso localizar a lesão auditiva: <strong>condutiva</strong> (orelha externa/média) ou <strong>neurossensorial</strong> (cóclea/nervo). A dupla Weber + Rinne resolve isso à beira do leito.</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+      <!-- externa -->
+      <path d="M20,110 Q40,60 90,70 L120,90 L120,150 L90,170 Q40,180 20,130 Z" fill="#DDEEF1" stroke="#2A8C9E" stroke-width="2"/>
+      <text x="70" y="200" font-size="11" text-anchor="middle" fill="#1F6B79">Orelha externa</text>
+      <!-- média -->
+      <rect x="128" y="82" width="80" height="76" rx="6" fill="#FBEAD2" stroke="#E08A2B" stroke-width="2"/>
+      <circle cx="150" cy="120" r="7" fill="#fff" stroke="#E08A2B"/><circle cx="170" cy="108" r="6" fill="#fff" stroke="#E08A2B"/><circle cx="188" cy="126" r="6" fill="#fff" stroke="#E08A2B"/>
+      <text x="168" y="200" font-size="11" text-anchor="middle" fill="#B26A16">Média (ossículos)</text>
+      <!-- interna coclea -->
+      <path d="M250,120 m0,-34 a34,34 0 1 1 -0.1,0 M250,120 m0,-20 a20,20 0 1 0 0.1,0" fill="none" stroke="#6E5AA6" stroke-width="4"/>
+      <text x="250" y="200" font-size="11" text-anchor="middle" fill="#6E5AA6">Cóclea</text>
+      <!-- nervo -->
+      <path d="M285,120 C340,120 360,110 420,110" stroke="#C8443F" stroke-width="4" fill="none"/>
+      <text x="360" y="100" font-size="11" text-anchor="middle" fill="#C8443F">VIII par</text>
+      <!-- tronco/cortex -->
+      <ellipse cx="500" cy="112" rx="40" ry="30" fill="#F7DEDC" stroke="#C8443F" stroke-width="2"/>
+      <text x="500" y="116" font-size="10" text-anchor="middle" fill="#C8443F">tronco</text>
+      <path d="M540,112 C580,112 600,90 650,88" stroke="#0F373F" stroke-width="3" fill="none"/>
+      <ellipse cx="680" cy="88" rx="30" ry="24" fill="#DCEDE5" stroke="#3E8E6E" stroke-width="2"/>
+      <text x="680" y="92" font-size="10" text-anchor="middle" fill="#3E8E6E">córtex</text>
+      <!-- divisórias condutivo/sensorial -->
+      <line x1="228" y1="40" x2="228" y2="180" stroke="#94a3a6" stroke-dasharray="4 4"/>
+      <text x="120" y="34" font-size="10.5" text-anchor="middle" fill="#12464F" font-weight="600">CONDUTIVO</text>
+      <text x="470" y="34" font-size="10.5" text-anchor="middle" fill="#6E5AA6" font-weight="600">NEUROSSENSORIAL / RETROCOCLEAR</text>
+    </svg>
+    <div class="leg">Via auditiva: a divisória define o tipo de perda — e orienta a investigação do zumbido</div>
+  </div>
+
+  <div class="two">
+    <div class="mini">
+      <h4>🎵 Rinne</h4>
+      <p>Compara condução aérea (CA) × óssea (CO) no mesmo ouvido.</p>
+      <ul class="tight">
+        <li><strong>Positivo (CA&gt;CO):</strong> normal ou perda neurossensorial</li>
+        <li><strong>Negativo (CO&gt;CA):</strong> perda condutiva</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>🎵 Weber</h4>
+      <p>Diapasão na linha média — lateralização:</p>
+      <ul class="tight">
+        <li><strong>Lateraliza p/ orelha pior:</strong> perda condutiva ipsilateral</li>
+        <li><strong>Lateraliza p/ orelha melhor:</strong> perda neurossensorial contralateral</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout c-pit">
+    <span class="tag">Armadilha</span>
+    Cerúmen impactado é causa banal e reversível de zumbido + hipoacusia condutiva. <strong>Sempre otoscopia antes de qualquer exame complementar.</strong>
+  </div>
+</section>
+
+<!-- ===== 04 ETIOLOGIA ===== -->
+<section id="etio">
+  <div class="snum">Seção 04</div>
+  <h2>Etiologia — mapa das causas</h2>
+  <p class="lead">Organizar por origem evita esquecer causas. Comece pelas otológicas (mais comuns) e reserve as vasculares/neurológicas para os quadros de alarme.</p>
+
+  <h3>Causas otológicas</h3>
+  <div class="tbl-wrap">
+  <table>
+    <tr><th>Causa</th><th>Característica do zumbido</th><th>Achados associados</th></tr>
+    <tr><td><strong>Presbiacusia</strong></td><td>Bilateral, tonal agudo</td><td>Idoso, perda simétrica em altas frequências</td></tr>
+    <tr><td><strong>PAIR / trauma sonoro</strong></td><td>Agudo, pós-exposição</td><td>Entalhe em 4 kHz na audiometria</td></tr>
+    <tr><td><strong>Doença de Ménière</strong></td><td>Rugido grave flutuante</td><td>Vertigem episódica, hipoacusia flutuante, plenitude aural</td></tr>
+    <tr><td><strong>Otosclerose</strong></td><td>Uni/bilateral</td><td>Perda condutiva progressiva, mulher jovem, sinal de Schwartze</td></tr>
+    <tr><td><strong>Cerúmen / otite / OMS</strong></td><td>Abafado, condutivo</td><td>Otoscopia alterada; reversível</td></tr>
+  </table>
+  </div>
+
+  <h3>Ototóxicos (mnemônico útil)</h3>
+  <div class="callout c-pit">
+    <span class="tag">Mnemônico — "A VÍTIMA SÚRDA"</span>
+    <strong>A</strong>minoglicosídeos · <strong>V</strong>ancomicina · cis<strong>P</strong>latina · <strong>S</strong>alicilatos (AAS em altas doses — zumbido <em>reversível</em>) · diuréticos de al<strong>Ç</strong>a (furosemida) · <strong>Q</strong>uinino/cloroquina · <strong>AINEs</strong>. Cisplatina e aminoglicosídeos causam dano coclear <em>irreversível</em>.
+  </div>
+
+  <h3>Neurológicas / retrococleares</h3>
+  <div class="tbl-wrap">
+  <table>
+    <tr><th>Causa</th><th>Pista</th><th>Conduta</th></tr>
+    <tr><td><strong>Schwannoma vestibular</strong> (neurinoma do acústico)</td><td>Zumbido <strong>unilateral</strong> + hipoacusia neurossensorial assimétrica ± desequilíbrio</td><td>RM com gadolínio do CAI/APC</td></tr>
+    <tr><td><strong>Esclerose múltipla</strong></td><td>Jovem, sintomas neuro flutuantes, PEATE alterado</td><td>RM encéfalo com contraste</td></tr>
+    <tr><td><strong>Compressão neurovascular do VIII</strong></td><td>Zumbido pulsátil-símile, às vezes com espasmo</td><td>RM (sequências finas), avaliação seletiva</td></tr>
+  </table>
+  </div>
+
+  <h3>Sistêmicas / metabólicas / musculoesqueléticas</h3>
+  <div class="two">
+    <div class="mini"><h4>🩸 Metabólicas</h4><ul class="tight"><li>Anemia</li><li>Disfunção tireoidiana</li><li>Dislipidemia / DM</li><li>Deficiência de B12/zinco (evidência fraca)</li></ul></div>
+    <div class="mini"><h4>🦴 Musculoesqueléticas</h4><ul class="tight"><li>Disfunção temporomandibular (DTM) — zumbido <strong>somatossensorial</strong>, modula com mandíbula</li><li>Contratura cervical alta</li><li>Mioclonia do palato/estapédio (clique)</li></ul></div>
+  </div>
+</section>
+
+<!-- ===== 05 PULSÁTIL ===== -->
+<section id="pulsatil">
+  <div class="snum">Seção 05</div>
+  <h2>Zumbido pulsátil — capítulo à parte</h2>
+  <p class="lead">Zumbido síncrono com o pulso é uma <strong>bandeira vascular</strong>. Exige investigação estruturada por imagem, pois inclui causas tratáveis e potencialmente graves. Diferencie do zumbido pulsátil venoso (contínuo, benigno) do arterial (sopro).</p>
+
+  <div class="tbl-wrap">
+  <table>
+    <tr><th>Categoria</th><th>Causas</th><th>Pistas / manobras</th></tr>
+    <tr><td><strong>Arterial</strong></td><td>Estenose/dissecção carotídea, aterosclerose, artéria aberrante, loop da AICA</td><td>Sopro cervical; fatores de risco vascular</td></tr>
+    <tr><td><strong>Arteriovenosa</strong></td><td><strong>Fístula dural (FAVD)</strong>, MAV</td><td>Sopro objetivo; ⚠️ risco de hemorragia — não perder!</td></tr>
+    <tr><td><strong>Venosa</strong></td><td>Bulbo jugular alto/deiscente, seio sigmoide diverticular, <strong>HII</strong></td><td>Melhora com compressão jugular ipsilateral / rotação cefálica</td></tr>
+    <tr><td><strong>Tumoral</strong></td><td><strong>Paraganglioma</strong> (glomus timpânico/jugular)</td><td>Massa retrotimpânica pulsátil, rubro-azulada; sinal de Brown</td></tr>
+    <tr><td><strong>Pressórica</strong></td><td><strong>Hipertensão intracraniana idiopática</strong></td><td>Mulher jovem obesa + cefaleia + papiledema + diplopia (VI par)</td></tr>
+    <tr><td><strong>Óssea</strong></td><td><strong>Deiscência do canal semicircular superior</strong> (SCDS)</td><td>Autofonia, vertigem ao som (Tullio), sinal de Hennebert; TC de osso temporal</td></tr>
+  </table>
+  </div>
+
+  <div class="callout c-neuro">
+    <span class="tag">Recorte otoneuro/neurocirúrgico</span>
+    Três causas pulsáteis merecem atenção especial pelo potencial de tratamento endovascular/cirúrgico: <strong>(1) Fístula arteriovenosa dural</strong> — risco hemorrágico, pode exigir embolização; <strong>(2) HII</strong> — pode responder a acetazolamida, perda de peso, e em casos refratários a <em>stent</em> de seio venoso ou derivação; <strong>(3) Paraganglioma jugular/timpânico</strong> — ressecção/embolização pré-operatória.
+  </div>
+
+  <div class="callout c-red">
+    <span class="tag">Não perca</span>
+    Zumbido <strong>pulsátil objetivo</strong> (auscultável) obriga a excluir fístula dural e paraganglioma. A investigação de imagem é <strong>mandatória</strong>, mesmo com audiometria normal.
+  </div>
+</section>
+
+<!-- ===== 06 ANAMNESE ===== -->
+<section id="anamnese">
+  <div class="snum">Seção 06</div>
+  <h2>Anamnese e exame físico</h2>
+
+  <h3>Anamnese direcionada</h3>
+  <div class="tbl-wrap">
+  <table>
+    <tr><th>Pergunta</th><th>O que discrimina</th></tr>
+    <tr><td>Uni ou bilateral?</td><td>Unilateral → retrococlear / estrutural</td></tr>
+    <tr><td>Pulsátil (bate com o coração)?</td><td>Sim → investigação vascular / imagem</td></tr>
+    <tr><td>Contínuo ou rítmico (clique)?</td><td>Clique → mioclonia / DTM</td></tr>
+    <tr><td>Perda auditiva, vertigem, plenitude?</td><td>Tríade + flutuação → Ménière</td></tr>
+    <tr><td>Exposição a ruído / ototóxicos / medicações?</td><td>PAIR, ototoxicidade</td></tr>
+    <tr><td>Cefaleia, alteração visual, diplopia?</td><td>HII</td></tr>
+    <tr><td>Impacto: sono, humor, concentração?</td><td>Gravidade e alvo terapêutico (THI)</td></tr>
+  </table>
+  </div>
+
+  <div class="callout c-pearl">
+    <span class="tag">Instrumento</span>
+    O <strong>THI (Tinnitus Handicap Inventory)</strong> quantifica o incômodo (0–100) e acompanha resposta ao tratamento. O incômodo — não a "intensidade" do som — define a gravidade.
+  </div>
+
+  <h3>Exame físico</h3>
+  <ul class="tight">
+    <li><strong>Otoscopia:</strong> cerúmen, OMA/OMS, massa retrotimpânica pulsátil (glomus), membrana azulada.</li>
+    <li><strong>Acumetria:</strong> Weber e Rinne.</li>
+    <li><strong>Ausculta</strong> de crânio, órbita, mastoide e pescoço (zumbido objetivo/sopro).</li>
+    <li><strong>Manobras vasculares:</strong> compressão jugular e rotação cefálica (zumbido venoso melhora).</li>
+    <li><strong>ATM e musculatura cervical:</strong> reproduz/modula o zumbido? → componente somatossensorial.</li>
+    <li><strong>Neurológico:</strong> pares cranianos (V, VII, VIII), fundo de olho (<strong>papiledema</strong>!), sinais cerebelares.</li>
+  </ul>
+</section>
+
+<!-- ===== 07 EXAMES ===== -->
+<section id="exames">
+  <div class="snum">Seção 07</div>
+  <h2>Exames complementares</h2>
+
+  <h3>Audiológicos (pilar da investigação)</h3>
+  <div class="tbl-wrap">
+  <table>
+    <tr><th>Exame</th><th>Avalia</th><th>Uso no zumbido</th></tr>
+    <tr><td><strong>Audiometria tonal + vocal</strong></td><td>Limiares por frequência; tipo/grau de perda</td><td>Exame inicial obrigatório; localiza e caracteriza a perda</td></tr>
+    <tr><td><strong>Imitanciometria</strong> (timpanometria + reflexos)</td><td>Complacência da orelha média; arco reflexo estapédico</td><td>Distingue condutivo × sensorial; reflexos ausentes → retrococlear</td></tr>
+    <tr><td><strong>Emissões otoacústicas (EOA)</strong></td><td>Função das células ciliadas externas</td><td>Triagem coclear; ausentes = disfunção coclear</td></tr>
+    <tr><td><strong>PEATE / BERA</strong></td><td>Integridade da via até o tronco</td><td>Rastreio de lesão retrococlear (aumento do intervalo I–V) quando RM indisponível</td></tr>
+    <tr><td><strong>Acufenometria</strong></td><td>Pitch e loudness do zumbido</td><td>Caracterização e ajuste da terapia sonora</td></tr>
+  </table>
+  </div>
+
+  <div class="callout c-pit">
+    <span class="tag">Armadilha</span>
+    PEATE normal <strong>não exclui</strong> schwannoma pequeno. Em zumbido unilateral com assimetria auditiva, a <strong>RM com gadolínio</strong> é o padrão-ouro, não o PEATE.
+  </div>
+
+  <h3>Laboratoriais (dirigidos, não de rotina)</h3>
+  <p>Solicitar conforme suspeita: <strong>hemograma</strong> (anemia), <strong>TSH/T4L</strong> (tireoide), <strong>glicemia/HbA1c e lipidograma</strong> (risco vascular/metabólico), <strong>ferritina, B12</strong> quando pertinente. Zumbido isolado, bilateral, com exame normal, geralmente <em>não</em> precisa de painel laboratorial amplo.</p>
+</section>
+
+<!-- ===== 08 IMAGEM ===== -->
+<section id="imagem">
+  <div class="snum">Seção 08</div>
+  <h2>Exames de imagem — quando e qual</h2>
+  <p class="lead">Imagem <strong>não</strong> é rotina no zumbido bilateral simétrico com exame normal. É <strong>indicada</strong> por gatilhos específicos.</p>
+
+  <div class="tbl-wrap">
+  <table>
+    <tr><th>Cenário clínico</th><th>Exame de escolha</th><th>Busca</th></tr>
+    <tr><td><strong>Unilateral + assimetria auditiva</strong></td><td>RM crânio/CAI <strong>com gadolínio</strong></td><td>Schwannoma vestibular, lesão do APC</td></tr>
+    <tr><td><strong>Pulsátil — 1ª linha</strong></td><td><strong>Angio-TC</strong> ou <strong>angio-RM</strong> de crânio/pescoço</td><td>Estenose, FAVD, aneurisma, variações venosas</td></tr>
+    <tr><td>Pulsátil + massa retrotimpânica</td><td>TC osso temporal + RM/angio</td><td>Paraganglioma (glomus)</td></tr>
+    <tr><td>Suspeita de <strong>SCDS</strong></td><td><strong>TC alta resolução</strong> de osso temporal (cortes de Pöschl/Stenvers)</td><td>Deiscência do canal semicircular superior</td></tr>
+    <tr><td>Suspeita de <strong>HII</strong></td><td>RM + <strong>veno-RM</strong> (± PL com pressão de abertura)</td><td>Sela vazia, estenose de seio transverso, exclusão de TVC</td></tr>
+    <tr><td>Alta suspeita de FAVD com imagem não-invasiva negativa</td><td><strong>Angiografia digital (DSA)</strong> — padrão-ouro</td><td>Confirmação e planejamento endovascular</td></tr>
+  </table>
+  </div>
+
+  <div class="callout c-neuro">
+    <span class="tag">Regra prática de imagem</span>
+    <strong>Unilateral/assimétrico → RM com gadolínio.</strong> <strong>Pulsátil → angio (TC/RM) primeiro; DSA se dúvida.</strong> Todo o resto: geralmente sem imagem.
+  </div>
+</section>
+
+<!-- ===== 09 DDX ===== -->
+<section id="ddx">
+  <div class="snum">Seção 09</div>
+  <h2>Diagnósticos diferenciais</h2>
+  <p class="lead">O raciocínio parte de duas perguntas: é <strong>pulsátil</strong>? é <strong>unilateral</strong>? Elas dividem o campo.</p>
+
+  <div class="two">
+    <div class="mini">
+      <h4>Não-pulsátil bilateral (comum, benigno)</h4>
+      <ul class="tight">
+        <li>Presbiacusia</li>
+        <li>PAIR / trauma sonoro</li>
+        <li>Ototoxicidade</li>
+        <li>Zumbido somatossensorial (DTM/cervical)</li>
+        <li>Metabólico (anemia, tireoide)</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>Unilateral (bandeira estrutural)</h4>
+      <ul class="tight">
+        <li><strong>Schwannoma vestibular</strong></li>
+        <li>Doença de Ménière (unilateral)</li>
+        <li>Otosclerose</li>
+        <li>Lesão do APC (meningioma, cisto)</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>Pulsátil (bandeira vascular)</h4>
+      <ul class="tight">
+        <li>Estenose/dissecção carotídea</li>
+        <li><strong>Fístula dural / MAV</strong></li>
+        <li><strong>Paraganglioma</strong></li>
+        <li><strong>HII</strong>, variações venosas</li>
+        <li>SCDS</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>Rítmico / clique</h4>
+      <ul class="tight">
+        <li>Mioclonia do palato mole</li>
+        <li>Mioclonia do estapédio/tensor do tímpano</li>
+        <li>Disfunção da tuba (clique com deglutição)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10 TRATAMENTO ===== -->
+<section id="trat">
+  <div class="snum">Seção 10</div>
+  <h2>Tratamento</h2>
+  <p class="lead">Princípio nº 1: <strong>tratar a causa quando existe</strong> (cerúmen, otosclerose, Ménière, FAVD, HII, glomus). Para o zumbido subjetivo crônico idiopático, o alvo é <strong>reduzir o incômodo</strong>, não "silenciar" o som — não há droga aprovada que elimine o zumbido.</p>
+
+  <h3>🟢 Conservador / não-medicamentoso (primeira linha)</h3>
+  <div class="tbl-wrap">
+  <table>
+    <tr><th>Modalidade</th><th>Como age</th><th>Evidência</th></tr>
+    <tr><td><strong>Educação e desmistificação</strong></td><td>Reduz a resposta de ameaça (Jastreboff)</td><td>Base de tudo</td></tr>
+    <tr><td><strong>TCC</strong> (terapia cognitivo-comportamental)</td><td>Reduz sofrimento, ansiedade e catastrofização</td><td>Melhor evidência para reduzir incômodo</td></tr>
+    <tr><td><strong>TRT</strong> (Tinnitus Retraining Therapy)</td><td>Habituação: aconselhamento + terapia sonora</td><td>Recomendada em casos incômodos</td></tr>
+    <tr><td><strong>Terapia sonora / mascaramento</strong></td><td>Enriquecimento sonoro reduz contraste do zumbido</td><td>Adjuvante útil</td></tr>
+    <tr><td><strong>Aparelho auditivo (AASI)</strong></td><td>Corrige a perda → reduz ganho central</td><td>Indicado se há perda auditiva associada</td></tr>
+    <tr><td><strong>Higiene do sono, exercício, cessar tabaco/cafeína</strong></td><td>Modula fatores agravantes</td><td>Suporte</td></tr>
+  </table>
+  </div>
+
+  <div class="callout c-pearl">
+    <span class="tag">Pérola de conduta</span>
+    Zumbido + perda auditiva → <strong>AASI é frequentemente a intervenção mais eficaz</strong>. Muitos pacientes "com zumbido" na verdade se beneficiam mais de amplificar do que de mascarar.
+  </div>
+
+  <h3>🟣 Medicamentoso (sem cura específica; tratar comorbidade)</h3>
+  <ul class="tight">
+    <li><strong>Antidepressivos (ISRS) / ansiolíticos:</strong> tratam depressão/ansiedade associadas — melhoram o <em>incômodo</em>, não o som em si.</li>
+    <li><strong>Corticoide</strong> (sistêmico ± intratimpânico): na <strong>perda auditiva neurossensorial súbita</strong> com zumbido — urgência otológica, janela terapêutica curta.</li>
+    <li><strong>Ménière:</strong> restrição de sal, diurético; betaistina (uso variável); gentamicina/corticoide intratimpânico em refratários.</li>
+    <li><strong>Suspender ototóxicos</strong> quando possível (salicilatos → reversível).</li>
+    <li><strong>Sem evidência robusta:</strong> Ginkgo biloba, zinco, vasodilatadores, anticonvulsivantes de rotina — <em>não recomendados</em> como terapia padrão.</li>
+  </ul>
+
+  <div class="callout c-red">
+    <span class="tag">Urgência</span>
+    Zumbido unilateral <strong>agudo</strong> com hipoacusia súbita = <strong>surdez súbita</strong> até prova em contrário → corticoide precoce e encaminhamento otológico imediato. Tempo é audição.
+  </div>
+
+  <h3>🔵 Cirúrgico / procedimental (para causas específicas)</h3>
+  <div class="tbl-wrap">
+  <table>
+    <tr><th>Condição</th><th>Procedimento</th></tr>
+    <tr><td><strong>Otosclerose</strong></td><td>Estapedotomia/estapedectomia</td></tr>
+    <tr><td><strong>Schwannoma vestibular</strong></td><td>Observação seriada, radiocirurgia (Gamma Knife) ou microcirurgia conforme tamanho/audição</td></tr>
+    <tr><td><strong>Fístula arteriovenosa dural / MAV</strong></td><td>Embolização endovascular ± cirurgia</td></tr>
+    <tr><td><strong>Paraganglioma (glomus)</strong></td><td>Embolização pré-operatória + ressecção; radioterapia em casos selecionados</td></tr>
+    <tr><td><strong>HII refratária</strong></td><td>Stent de seio venoso, DLP/DVP, fenestração da bainha do n. óptico (se ameaça visual)</td></tr>
+    <tr><td><strong>SCDS incapacitante</strong></td><td>Oclusão/recobrimento (plugging/resurfacing) do canal semicircular superior</td></tr>
+    <tr><td><strong>Perda profunda + zumbido</strong></td><td>Implante coclear (pode reduzir zumbido no lado implantado)</td></tr>
+  </table>
+  </div>
+</section>
+
+<!-- ===== 11 RED FLAGS ===== -->
+<section id="red">
+  <div class="snum">Seção 11</div>
+  <h2>Sinais de alarme (red flags)</h2>
+  <div class="card">
+    <ul class="tight" style="columns:2;column-gap:32px">
+      <li>🚩 Zumbido <strong>unilateral</strong> persistente</li>
+      <li>🚩 Zumbido <strong>pulsátil</strong> (sobretudo objetivo)</li>
+      <li>🚩 Hipoacusia <strong>súbita</strong> unilateral</li>
+      <li>🚩 <strong>Assimetria</strong> auditiva na audiometria</li>
+      <li>🚩 Vertigem/desequilíbrio associados</li>
+      <li>🚩 Déficit neurológico focal (V, VII, cerebelar)</li>
+      <li>🚩 Cefaleia + alteração visual + <strong>papiledema</strong> (HII)</li>
+      <li>🚩 Massa retrotimpânica pulsátil</li>
+    </ul>
+  </div>
+  <div class="callout c-red">
+    <span class="tag">Encaminhamento</span>
+    Qualquer red flag → encaminhar ao <strong>otorrinolaringologista/otoneurologista</strong> e considerar imagem dirigida. Zumbido pulsátil objetivo ou suspeita de fístula → avaliação neurovascular.
+  </div>
+
+  <div class="callout c-pearl">
+    <span class="tag">Síntese em 3 linhas</span>
+    <strong>1)</strong> Zumbido é sintoma → procure a causa. <strong>2)</strong> Unilateral pede RM com gadolínio; pulsátil pede angio. <strong>3)</strong> No idiopático crônico, o alvo é reduzir o incômodo (TCC/TRT/AASI), não silenciar o som.
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section id="quiz">
+  <div class="snum">Seção 12</div>
+  <div class="quiz">
+    <h2>🧪 Mini-simulado</h2>
+    <p style="color:#C9DEE0;margin-top:0">10 questões de fixação. Clique na alternativa — o gabarito e o comentário aparecem na hora.</p>
+    <div id="quizbox"></div>
+    <div id="score"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Módulo de Otoneurologia · Zumbido (Tinnitus) · material didático para graduação em Medicina<br>
+  Conteúdo educacional — não substitui protocolos institucionais ou avaliação especializada.
+</footer>
+
+<script>
+const QUIZ=[
+ {q:"Paciente de 52 anos com zumbido <strong>unilateral</strong> progressivo à direita e audiometria mostrando perda neurossensorial assimétrica à direita. Qual a conduta mais adequada?",
+  o:["Reassegurar e tratar com Ginkgo biloba","Solicitar RM de crânio/CAI com gadolínio","Solicitar angio-TC de pescoço","Apenas repetir a audiometria em 6 meses"],
+  a:1,e:"Zumbido unilateral + assimetria neurossensorial é bandeira para <b>schwannoma vestibular</b>. O padrão-ouro é a <b>RM com gadolínio</b> do conduto auditivo interno/APC — PEATE normal não exclui tumor pequeno."},
+
+ {q:"Mulher de 30 anos, obesa, com zumbido <strong>pulsátil</strong>, cefaleia e diplopia. Fundoscopia com papiledema. Diagnóstico mais provável?",
+  o:["Doença de Ménière","Otosclerose","Hipertensão intracraniana idiopática","Presbiacusia"],
+  a:2,e:"Fenótipo clássico de <b>HII</b>: mulher jovem, obesa, cefaleia, papiledema, paresia do VI par (diplopia) e zumbido pulsátil. Investigar com RM + veno-RM e pressão de abertura na PL."},
+
+ {q:"O modelo neurofisiológico de Jastreboff explica principalmente:",
+  o:["Por que o zumbido some com aparelho auditivo","O papel do sistema límbico/autonômico no sofrimento causado pelo zumbido","A origem coclear de todo zumbido","A indicação de estapedotomia"],
+  a:1,e:"Jastreboff propõe que o <b>incômodo</b> nasce do acoplamento do sinal auditivo com os sistemas <b>límbico e autonômico</b> (medo/atenção). É a base racional da TRT e da TCC."},
+
+ {q:"Qual manobra tipicamente <strong>reduz</strong> um zumbido pulsátil de origem <strong>venosa</strong>?",
+  o:["Compressão da jugular ipsilateral / rotação cefálica","Manobra de Valsalva forçada","Compressão da carótida contralateral","Deglutição repetida"],
+  a:0,e:"O zumbido pulsátil <b>venoso</b> costuma <b>diminuir</b> com compressão da jugular ipsilateral e com a rotação da cabeça, que alteram o fluxo venoso. Ajuda a distingui-lo do arterial."},
+
+ {q:"Sobre imagem no zumbido, assinale a correta:",
+  o:["Todo zumbido exige RM de crânio","Zumbido bilateral simétrico com exame normal geralmente não requer imagem","Zumbido pulsátil deve ser investigado só com audiometria","TC de osso temporal é 1ª linha para schwannoma"],
+  a:1,e:"Imagem é <b>dirigida por gatilhos</b> (unilateral, pulsátil, focalidade). Zumbido bilateral simétrico com exame normal geralmente <b>não</b> precisa de imagem. Schwannoma → RM com gadolínio, não TC."},
+
+ {q:"O entalhe (notch) em <strong>4 kHz</strong> na audiometria é típico de:",
+  o:["Doença de Ménière","Perda auditiva induzida por ruído (PAIR)","Otosclerose","Neurinoma do acústico"],
+  a:1,e:"O entalhe em 4 kHz com recuperação relativa em frequências mais altas é a assinatura da <b>PAIR / trauma sonoro</b>."},
+
+ {q:"Qual medicamento causa zumbido de forma classicamente <strong>reversível</strong> ao ser suspenso?",
+  o:["Cisplatina","Aminoglicosídeo","Salicilato (AAS em alta dose)","Gentamicina intratimpânica"],
+  a:2,e:"Os <b>salicilatos</b> causam zumbido dose-dependente e <b>reversível</b>. Cisplatina e aminoglicosídeos causam dano coclear em geral <b>irreversível</b>."},
+
+ {q:"Tríade de vertigem episódica, hipoacusia flutuante e plenitude aural, com zumbido em rugido grave, sugere:",
+  o:["Doença de Ménière","Schwannoma vestibular","Fístula dural","SCDS"],
+  a:0,e:"É a apresentação clássica da <b>doença de Ménière</b> (hidropsia endolinfática). Tratamento inicial: restrição de sal e diurético."},
+
+ {q:"Homem com zumbido pulsátil <strong>objetivo</strong> (auscultável) e sopro retroauricular. A causa que NÃO se pode deixar de excluir é:",
+  o:["Cerúmen impactado","Fístula arteriovenosa dural","Presbiacusia","DTM"],
+  a:1,e:"Zumbido pulsátil <b>objetivo</b> obriga excluir <b>fístula arteriovenosa dural</b> (risco hemorrágico) e paraganglioma. Investigar com angio (TC/RM) e, se dúvida, angiografia digital."},
+
+ {q:"Para o zumbido subjetivo crônico idiopático <strong>com perda auditiva associada</strong>, a intervenção frequentemente mais eficaz é:",
+  o:["Benzodiazepínico contínuo","Aparelho de amplificação sonora (AASI)","Ginkgo biloba","Cirurgia de labirinto"],
+  a:1,e:"Corrigir a perda com <b>AASI</b> reduz o ganho central e costuma diminuir o zumbido — muitas vezes mais eficaz que mascaramento isolado. Não há droga que 'cure' o zumbido; TCC/TRT reduzem o incômodo."}
+];
+
+const box=document.getElementById('quizbox');
+let answered=0, correct=0;
+QUIZ.forEach((item,i)=>{
+  const div=document.createElement('div');div.className='q';
+  div.innerHTML=`<div class="qhead"><span class="qn">Q${i+1}.</span>${item.q}</div>`;
+  item.o.forEach((op,j)=>{
+    const b=document.createElement('button');b.className='opt';b.innerHTML=op;
+    b.onclick=()=>{
+      if(b.disabled) return;
+      const btns=div.querySelectorAll('.opt');
+      btns.forEach(x=>x.disabled=true);
+      answered++;
+      if(j===item.a){b.classList.add('correct');b.innerHTML=op+'<span class="mk">✓</span>';correct++;}
+      else{b.classList.add('wrong');b.innerHTML=op+'<span class="mk">✗</span>';btns[item.a].classList.add('correct');btns[item.a].innerHTML=item.o[item.a]+'<span class="mk">✓</span>';}
+      div.querySelector('.expl').classList.add('show');
+      if(answered===QUIZ.length) showScore();
+    };
+    div.appendChild(b);
+  });
+  const ex=document.createElement('div');ex.className='expl';ex.innerHTML='<b>Comentário:</b> '+item.e;
+  div.appendChild(ex);
+  box.appendChild(div);
+});
+function showScore(){
+  const s=document.getElementById('score');
+  const pct=Math.round(correct/QUIZ.length*100);
+  let msg = pct>=80?'Excelente domínio! 🎯':pct>=60?'Bom — revise os pontos que errou. 📚':'Vale reler as seções 04, 05 e 08. 💪';
+  s.innerHTML=`<span class="big">${correct}/${QUIZ.length} · ${pct}%</span>${msg}`;
+  s.classList.add('show');
+  s.scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
+</body>
+</html>
